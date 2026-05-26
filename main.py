@@ -68,3 +68,7 @@ if __name__ == "__main__":
     print(f"Área do triângulo isósceles: {area(tri_isosceles):.2f}")
     print(f"Área do triângulo de Pitágoras: {area(tri_pitagoras):.2f}")
     print(f"Hipotenusa do triângulo de Pitágoras: {get_hypotenuse(tri_pitagoras):.2f}")
+
+# Fim do módulo de formas geométricas
+
+# Validação final de assinatura nativa
