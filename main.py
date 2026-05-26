@@ -1,74 +1,35 @@
 # main.py
 import math
-from dataclasses import dataclass
 
 
-@dataclass
-class Circle:
-    radius: float
+class Trapezio:
+    def __init__(self, base_maior: float, base_menor: float, altura: float):
+        self.base_maior = base_maior
+        self.base_menor = base_menor
+        self.altura = altura
+
+    def calcular_area(self) -> float:
+        """Calcula a área do trapézio: ((B + b) * h) / 2"""
+        return ((self.base_maior + self.base_menor) * self.altura) / 2
+
+    def calcular_perimetro_isosceles(self) -> float:
+        """
+        Calcula o perímetro assumindo um trapézio isósceles (lados oblíquos iguais).
+        Usa Pitágoras para encontrar o comprimento do lado oblíquo.
+        """
+        # Projeção da base para formar o triângulo retângulo
+        projecao_base = (self.base_maior - self.base_menor) / 2
+
+        # Hipotenusa (lado oblíquo) = sqrt(altura^2 + projecao_base^2)
+        lado_obliquo = math.sqrt(self.altura**2 + projecao_base**2)
+
+        return self.base_maior + self.base_menor + (2 * lado_obliquo)
 
 
-@dataclass
-class Rectangle:
-    width: float
-    height: float
-
-
-@dataclass
-class IsoscelesTriangle:
-    base: float
-    side: float  # Os dois lados iguais
-
-
-@dataclass
-class PythagoreanTriangle:
-    cathetus_a: float
-    cathetus_b: float
-
-
-def area(shape) -> float:
-    match shape:
-        case Circle(radius=r):
-            return 3.14159 * r * r
-
-        case Rectangle(width=w, height=h):
-            return w * h
-
-        case IsoscelesTriangle(base=b, side=s):
-            # Altura h = sqrt(side^2 - (base/2)^2)
-            height = math.sqrt(s**2 - (b / 2) ** 2)
-            return (b * height) / 2
-
-        case PythagoreanTriangle(cathetus_a=a, cathetus_b=b):
-            # Área de um triângulo retângulo é (base * altura) / 2 usando os catetos
-            return (a * b) / 2
-
-        case _:
-            raise ValueError("Forma geométrica desconhecida")
-
-
-def get_hypotenuse(triangle: PythagoreanTriangle) -> float:
-    """Calcula a hipotenusa de um triângulo retângulo usando o Teorema de Pitágoras."""
-    return math.hypot(triangle.cathetus_a, triangle.cathetus_b)
-
-
-# Exemplo de uso para testar:
+# Bloco de teste rápido na bancada
 if __name__ == "__main__":
-    circulo = Circle(5.0)
-    retangulo = Rectangle(4.0, 5.0)
-
-    # Triângulo Isósceles: base = 6.0, lados iguais = 5.0 (Altura será 4.0)
-    tri_isosceles = IsoscelesTriangle(base=6.0, side=5.0)
-
-    # Triângulo Retângulo clássico (3, 4, 5)
-    tri_pitagoras = PythagoreanTriangle(cathetus_a=3.0, cathetus_b=4.0)
-
-    print(f"Área do círculo: {area(circulo):.2f}")
-    print(f"Área do retângulo: {area(retangulo):.2f}")
-    print(f"Área do triângulo isósceles: {area(tri_isosceles):.2f}")
-    print(f"Área do triângulo de Pitágoras: {area(tri_pitagoras):.2f}")
-    print(f"Hipotenusa do triângulo de Pitágoras: {get_hypotenuse(tri_pitagoras):.2f}")
-
-# Fim do módulo de formas geométricas
-
-# Validação final de assinatura nativa
+    # Exemplo: Trapézio com Base Maior = 10, Base Menor = 6, Altura = 4
+    trap = Trapezio(base_maior=10, base_menor=6, altura=4)
+    print("--- Teste da Classe Trapezio ---")
+    print(f"Área: {trap.calcular_area()} m²")
+    print(f"Perímetro (Isósceles): {trap.calcular_perimetro_isosceles():.2f} m")
