@@ -33,3 +33,24 @@ if __name__ == "__main__":
     print("--- Teste da Classe Trapezio ---")
     print(f"Área: {trap.calcular_area()} m²")
     print(f"Perímetro (Isósceles): {trap.calcular_perimetro_isosceles():.2f} m")
+
+
+class Circulo:
+    def __init__(self, raio: float):
+        self.raio = raio
+
+    def calcular_area(self) -> float:
+        """Calcula a área do círculo: π * r²"""
+        return math.pi * (self.raio**2)
+
+    def calcular_perimetro(self) -> float:
+        """Calcula a circunferência (perímetro): 2 * π * r"""
+        return 2 * math.pi * self.raio
+
+
+# --- BANCADA DE TESTES ATUALIZADA ---
+if __name__ == "__main__":
+    print("--- Teste da Classe Circulo ---")
+    c = Circulo(raio=5)
+    print(f"Área: {c.calcular_area():.2f} m²")
+    print(f"Circunferência: {c.calcular_perimetro():.2f} m")
